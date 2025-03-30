@@ -4,8 +4,8 @@ global:
   datasets:
     - mimir_name: "arxiv"
       split: "ngram_13_0.8"
-    - mimir_name: "pile_cc"
-      split: "ngram_13_0.8"
+    # - mimir_name: "pile_cc"
+    #   split: "ngram_13_0.8"
   batch_size: 32
   device: "cuda:0"
   fpr_thresholds:

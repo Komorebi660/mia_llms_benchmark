@@ -66,12 +66,15 @@ class SaMIAAttack(AbstractAttack):
         super().__init__(name, model, tokenizer, config)
 
     def run(self, dataset: Dataset) -> Dataset:
+        original_padding_side = self.tokenizer.padding_side
+        self.tokenizer.padding_side = "left"    # for generation
         dataset = dataset.map(
             lambda x: self.score(x),
             batched=True,
             batch_size=self.config['batch_size'],
             new_fingerprint=f"{self.signature(dataset)}_v4",
         )
+        self.tokenizer.padding_side = original_padding_side   # restore padding side
         return dataset
 
     def score(self, batch):

@@ -31,10 +31,9 @@ class BagofWordsAttack(AbstractAttack):
             X_test_bow = vectorizer.transform(X_test).toarray()
 
             classifier = RandomForestClassifier(n_estimators=self.config['n_estimators'], max_depth=self.config['max_depth'],
-                                                min_samples_leaf=self.config['min_samples_leaf'])
+                                                min_samples_leaf=self.config['min_samples_leaf'], random_state=self.config['seed'])
             classifier.fit(X_train_bow, y_train)
 
-            classifier.fit(X_train_bow, y_train)
             bow_probas[test_idx] = classifier.predict_proba(X_test_bow)[:, 1]
 
         dataset = dataset.map(lambda x, i: {self.name: bow_probas[i]}, with_indices=True)

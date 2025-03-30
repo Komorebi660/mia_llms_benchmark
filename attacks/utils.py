@@ -31,6 +31,9 @@ def compute_nlloss(
 
         loss = loss.sum(axis=1) / shift_attention_mask.sum(axis=1)
 
+        if loss.dtype == torch.bfloat16:
+            loss = loss.to(torch.float16)
+
         return loss.detach().cpu().numpy()
 
 

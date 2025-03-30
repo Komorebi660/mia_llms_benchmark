@@ -61,7 +61,7 @@ The following command allows to run a range of MIA methodologies from the litera
 
 The flag `run-all` corresponds to running all attacks specified in the config file, while subsets of attacks can also be specified using e.g. 
 
-`python main.py -c config_template_traps.yaml --attacks loss zlib ratio --output={PATH_TO_OUTPUT}`
+`python main.py -c config_template_traps.yaml --attacks bag_of_words loss zlib ratio minkprob --output={PATH_TO_OUTPUT}`
 
 All MIAs we implement can be found in `./attacks/`, where new attacks could easily be added. 
 Currently, this repo contains the following attacks, where comments or default parameters are added when meaningful: 

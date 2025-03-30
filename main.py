@@ -18,8 +18,8 @@ logging.basicConfig(level=logging.INFO)
 
 
 def init_model(model_name, device):
-    model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name, torch_dtype="auto", cache_dir="./huggingface").to(device)
+    tokenizer = AutoTokenizer.from_pretrained(model_name, cache_dir="./huggingface")
     tokenizer.pad_token = tokenizer.eos_token
     return model, tokenizer
 
@@ -87,7 +87,7 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--config', type=str, help='Config path', required=True)
     parser.add_argument('--attacks', nargs='*', type=str, help='Attacks to run.')
     parser.add_argument('--run-all', action='store_true', help='Run all available attacks')
-    parser.add_argument('--seed', type=int, help='Random seed', default=None)
+    parser.add_argument('--seed', type=int, help='Random seed', default=2024)
     parser.add_argument('--output', type=str, help="File to store attack results", default=None)
     args = parser.parse_args()
 

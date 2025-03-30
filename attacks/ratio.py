@@ -11,7 +11,7 @@ class RatioAttack(AbstractAttack):
         self.reference_device = config['device']
 
     def _load_reference(self, device):
-        reference_model = AutoModelForCausalLM.from_pretrained(self.config['reference_model_path']).to(device)
+        reference_model = AutoModelForCausalLM.from_pretrained(self.config['reference_model_path'], torch_dtype="auto").to(device)
         reference_tokenizer = AutoTokenizer.from_pretrained(self.config['reference_tokenizer_path'])
         reference_tokenizer.pad_token = reference_tokenizer.eos_token
         return reference_model, reference_tokenizer
